@@ -1,3 +1,5 @@
+![GitSense Preview](./gitsense-preview.png)
+
 # GitSense
 
 AI-powered repository intelligence platform for Gitlawb.
