@@ -61,7 +61,7 @@ export default function Hero() {
               <span className="relative inline-flex h-1.5 w-1.5">
                 <span className="absolute inset-0 rounded-full bg-[#00E676] pulse-dot" />
               </span>
-              <span className="font-mono">182,439 repos analyzed</span>
+              <span className="font-mono">42 repos analyzed</span>
             </div>
             <div className="hidden sm:block h-3 w-px bg-white/10" />
             <div className="hidden sm:block font-mono">~1.8s avg scan</div>

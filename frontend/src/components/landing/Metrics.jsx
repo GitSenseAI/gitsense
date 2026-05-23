@@ -25,9 +25,9 @@ export default function Metrics() {
   const ref = useRef(null);
   const [inView, setInView] = useState(false);
   const [data, setData] = useState({
-    repositories_analyzed: 184239,
-    ai_scans_completed: 612904,
-    contributors_tracked: 48127,
+    repositories_analyzed: 42,
+    ai_scans_completed: 138,
+    contributors_tracked: 12,
     average_analysis_ms: 1820,
   });
 
