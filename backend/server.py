@@ -104,7 +104,7 @@ async def get_status_checks():
 
 # -------- Mock analyzer --------
 def _generate_mock_analysis(repo_url: str) -> AnalysisResult:
-    repo_name = repo_url.replace("gitlawb://", "").replace("https://gitlawb.com/", "").strip("/") or "blvckout/core-node"
+    repo_name = repo_url.replace("gitlawb://", "").replace("https://gitlawb.com/", "").strip("/") or "gitsense/repository-demo"
 
     random.seed(repo_name)
     health_score = random.randint(72, 96)
@@ -121,7 +121,7 @@ def _generate_mock_analysis(repo_url: str) -> AnalysisResult:
     ]
 
     contributors = [
-        {"name": "blvckout", "commits": 1428, "role": "Maintainer", "avatar_seed": "blvckout"},
+        {"name": "gitsense", "commits": 1428, "role": "Maintainer", "avatar_seed": "gitsense"},
         {"name": "neon.dev", "commits": 612, "role": "Core", "avatar_seed": "neon"},
         {"name": "kira.x", "commits": 318, "role": "Core", "avatar_seed": "kira"},
         {"name": "ascii_void", "commits": 204, "role": "Contributor", "avatar_seed": "ascii"},

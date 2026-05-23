@@ -1,17 +1,20 @@
 import { useEffect, useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { LOGO_URL } from "@/lib/brand";
 import { Menu, X } from "lucide-react";
 
 const NAV_LINKS = [
-  { label: "Features", href: "#features" },
-  { label: "Demo", href: "#analyzer" },
-  { label: "Docs", href: "#docs" },
-  { label: "Gitlawb", href: "#gitlawb" },
+  { label: "Features", to: "/#features", type: "anchor" },
+  { label: "Demo", to: "/#analyzer", type: "anchor" },
+  { label: "Docs", to: "/docs", type: "route" },
+  { label: "Gitlawb", to: "/gitlawb", type: "route" },
 ];
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const location = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -20,11 +23,23 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  const scrollTo = (href) => {
+  const goAnchor = (id) => {
     setOpen(false);
-    if (href.startsWith("#")) {
-      const el = document.querySelector(href);
-      if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+    if (location.pathname !== "/") {
+      navigate(`/${id}`);
+      return;
+    }
+    const el = document.querySelector(id);
+    if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
+
+  const handleNavClick = (link) => {
+    if (link.type === "anchor") {
+      const id = link.to.replace("/", "");
+      goAnchor(id);
+    } else {
+      setOpen(false);
+      navigate(link.to);
     }
   };
 
@@ -38,7 +53,10 @@ export default function Navbar() {
       <div className="flex items-center justify-between px-4 sm:px-6 py-3">
         <button
           data-testid="navbar-logo-btn"
-          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+          onClick={() => {
+            if (location.pathname !== "/") navigate("/");
+            else window.scrollTo({ top: 0, behavior: "smooth" });
+          }}
           className="flex items-center gap-2.5 group"
         >
           <span className="relative inline-flex h-8 w-8 rounded-lg overflow-hidden gs-border bg-black">
@@ -50,22 +68,34 @@ export default function Navbar() {
         </button>
 
         <nav className="hidden md:flex items-center gap-1">
-          {NAV_LINKS.map((link) => (
-            <button
-              key={link.label}
-              data-testid={`nav-link-${link.label.toLowerCase()}`}
-              onClick={() => scrollTo(link.href)}
-              className="px-3.5 py-2 text-sm text-neutral-400 hover:text-white rounded-lg hover:bg-white/[0.04] transition-colors"
-            >
-              {link.label}
-            </button>
-          ))}
+          {NAV_LINKS.map((link) =>
+            link.type === "anchor" ? (
+              <button
+                key={link.label}
+                data-testid={`nav-link-${link.label.toLowerCase()}`}
+                onClick={() => handleNavClick(link)}
+                className="px-3.5 py-2 text-sm text-neutral-400 hover:text-white rounded-lg hover:bg-white/[0.04] transition-colors"
+              >
+                {link.label}
+              </button>
+            ) : (
+              <Link
+                key={link.label}
+                to={link.to}
+                data-testid={`nav-link-${link.label.toLowerCase()}`}
+                onClick={() => setOpen(false)}
+                className="px-3.5 py-2 text-sm text-neutral-400 hover:text-white rounded-lg hover:bg-white/[0.04] transition-colors"
+              >
+                {link.label}
+              </Link>
+            )
+          )}
         </nav>
 
         <div className="flex items-center gap-2">
           <button
             data-testid="navbar-cta-analyze"
-            onClick={() => scrollTo("#analyzer")}
+            onClick={() => goAnchor("#analyzer")}
             className="hidden sm:inline-flex items-center gap-2 rounded-lg bg-[#00E676] text-black px-4 py-2 text-sm font-medium hover:bg-[#00d169] active:scale-[0.98] transition"
           >
             Analyze Repo
@@ -84,17 +114,28 @@ export default function Navbar() {
 
       {open && (
         <div data-testid="mobile-menu" className="md:hidden border-t border-white/[0.06] px-4 py-3 flex flex-col gap-1">
-          {NAV_LINKS.map((link) => (
-            <button
-              key={link.label}
-              onClick={() => scrollTo(link.href)}
-              className="text-left px-3 py-2 text-sm text-neutral-300 hover:text-white rounded-lg hover:bg-white/[0.04]"
-            >
-              {link.label}
-            </button>
-          ))}
+          {NAV_LINKS.map((link) =>
+            link.type === "anchor" ? (
+              <button
+                key={link.label}
+                onClick={() => handleNavClick(link)}
+                className="text-left px-3 py-2 text-sm text-neutral-300 hover:text-white rounded-lg hover:bg-white/[0.04]"
+              >
+                {link.label}
+              </button>
+            ) : (
+              <Link
+                key={link.label}
+                to={link.to}
+                onClick={() => setOpen(false)}
+                className="text-left px-3 py-2 text-sm text-neutral-300 hover:text-white rounded-lg hover:bg-white/[0.04]"
+              >
+                {link.label}
+              </Link>
+            )
+          )}
           <button
-            onClick={() => scrollTo("#analyzer")}
+            onClick={() => goAnchor("#analyzer")}
             className="mt-2 rounded-lg bg-[#00E676] text-black px-4 py-2 text-sm font-medium"
           >
             Analyze Repo

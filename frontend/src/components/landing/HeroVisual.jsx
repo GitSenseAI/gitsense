@@ -16,7 +16,7 @@ export default function HeroVisual({ logoUrl }) {
             <span className="h-2 w-2 rounded-full bg-[#28c840]/70" />
           </div>
           <div className="font-mono text-[11px] text-neutral-500">
-            gitlawb://blvckout/core-node
+            gitlawb://gitsense/repository-demo
           </div>
           <div className="flex items-center gap-1.5 text-[10px] text-[#00E676] font-mono">
             <span className="relative inline-flex h-1.5 w-1.5">
@@ -51,7 +51,7 @@ export default function HeroVisual({ logoUrl }) {
               </div>
               <div className="space-y-2">
                 {[
-                  { n: "blvckout", c: 1428 },
+                  { n: "gitsense", c: 1428 },
                   { n: "neon.dev", c: 612 },
                   { n: "kira.x", c: 318 },
                 ].map((c) => (

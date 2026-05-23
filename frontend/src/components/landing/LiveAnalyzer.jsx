@@ -15,7 +15,7 @@ const SCAN_STEPS = [
 ];
 
 export default function LiveAnalyzer() {
-  const [repo, setRepo] = useState("gitlawb://blvckout/core-node");
+  const [repo, setRepo] = useState("gitlawb://gitsense/repository-demo");
   const [loading, setLoading] = useState(false);
   const [step, setStep] = useState(-1);
   const [progress, setProgress] = useState(0);

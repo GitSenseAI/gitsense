@@ -27,7 +27,7 @@ class TestRoot:
 # -------- Analyze --------
 class TestAnalyze:
     def test_analyze_valid_repo(self, client):
-        payload = {"repo_url": "gitlawb://blvckout/core-node"}
+        payload = {"repo_url": "gitlawb://gitsense/repository-demo"}
         r = client.post(f"{API}/analyze", json=payload)
         assert r.status_code == 200, r.text
         data = r.json()
@@ -43,7 +43,7 @@ class TestAnalyze:
 
         # Value assertions
         assert data["repo_url"] == payload["repo_url"]
-        assert data["repo_name"] == "blvckout/core-node"
+        assert data["repo_name"] == "gitsense/repository-demo"
         assert 0 <= data["health_score"] <= 100
         assert isinstance(data["dependencies"], list) and len(data["dependencies"]) > 0
         assert isinstance(data["contributors"], list) and len(data["contributors"]) > 0
@@ -60,7 +60,7 @@ class TestAnalyze:
 
     def test_analyze_deterministic_health_score(self, client):
         """Same repo_url should yield same health score (seeded random)."""
-        payload = {"repo_url": "gitlawb://blvckout/core-node"}
+        payload = {"repo_url": "gitlawb://gitsense/repository-demo"}
         r1 = client.post(f"{API}/analyze", json=payload).json()
         r2 = client.post(f"{API}/analyze", json=payload).json()
         assert r1["health_score"] == r2["health_score"]

@@ -1,7 +1,7 @@
 import { Activity, GitBranch, ShieldAlert, Sparkles, TrendingUp } from "lucide-react";
 
 const CONTRIBS = [
-  { n: "blvckout", c: 1428, color: "#00E676" },
+  { n: "gitsense", c: 1428, color: "#00E676" },
   { n: "neon.dev", c: 612, color: "#00C2FF" },
   { n: "kira.x", c: 318, color: "#00E676" },
   { n: "ascii_void", c: 204, color: "#00C2FF" },
